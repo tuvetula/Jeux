@@ -42,9 +42,11 @@ play.onclick = function startNewGame() {
         //CREATION PLAYERS
         let Player1 = new Object();
         Player1.name = namePlayer1;
+        Player1.win = 0;
         Player1.value = 1;
         let Player2 = new Object();
         Player2.value = 2;
+        Player2.win = 0;
 
         //Définition Player2.name
         if (choiceNamePlayer2 != null) {
@@ -117,7 +119,8 @@ function game(Player1, Player2, nbPlayers, playerStart) {
     //Case11
     case11.addEventListener("click", function(e) {
         tourNumber = writeInCase(e, Player1, Player2, tourNumber, array);
-        if (nbPlayers == 1 && tourNumber % 2 == Player2['value'] % 2) {
+
+        if (nbPlayers == 1 && tourNumber % 2 == Player2['value'] % 2 && Player1['win']==0) {
             let caseToPlayNow = verifyGamePlayer1(array);
             document.getElementById(caseToPlayNow).click();
         }
@@ -125,7 +128,7 @@ function game(Player1, Player2, nbPlayers, playerStart) {
     //Case12
     case12.addEventListener("click", function(e) {
         tourNumber = writeInCase(e, Player1, Player2, tourNumber, array);
-        if (nbPlayers == 1 && tourNumber % 2 == Player2['value'] % 2) {
+        if (nbPlayers == 1 && tourNumber % 2 == Player2['value'] % 2 && Player1['win']==0) {
             let caseToPlayNow = verifyGamePlayer1(array);
             document.getElementById(caseToPlayNow).click();
         }
@@ -133,7 +136,7 @@ function game(Player1, Player2, nbPlayers, playerStart) {
     //Case13
     case13.addEventListener("click", function(e) {
         tourNumber = writeInCase(e, Player1, Player2, tourNumber, array);
-        if (nbPlayers == 1 && tourNumber % 2 == Player2['value'] % 2) {
+        if (nbPlayers == 1 && tourNumber % 2 == Player2['value'] % 2 && Player1['win']==0) {
             let caseToPlayNow = verifyGamePlayer1(array);
             document.getElementById(caseToPlayNow).click();
         }
@@ -141,7 +144,7 @@ function game(Player1, Player2, nbPlayers, playerStart) {
     //Case21
     case21.addEventListener("click", function(e) {
         tourNumber = writeInCase(e, Player1, Player2, tourNumber, array);
-        if (nbPlayers == 1 && tourNumber % 2 == Player2['value'] % 2) {
+        if (nbPlayers == 1 && tourNumber % 2 == Player2['value'] % 2 && Player1['win']==0) {
             let caseToPlayNow = verifyGamePlayer1(array);
             document.getElementById(caseToPlayNow).click();
         }
@@ -149,7 +152,7 @@ function game(Player1, Player2, nbPlayers, playerStart) {
     //Case22
     case22.addEventListener("click", function(e) {
         tourNumber = writeInCase(e, Player1, Player2, tourNumber, array);
-        if (nbPlayers == 1 && tourNumber % 2 == Player2['value'] % 2) {
+        if (nbPlayers == 1 && tourNumber % 2 == Player2['value'] % 2 && Player1['win']==0) {
             let caseToPlayNow = verifyGamePlayer1(array);
             document.getElementById(caseToPlayNow).click();
         }
@@ -157,7 +160,7 @@ function game(Player1, Player2, nbPlayers, playerStart) {
     //Case23
     case23.addEventListener("click", function(e) {
         tourNumber = writeInCase(e, Player1, Player2, tourNumber, array);
-        if (nbPlayers == 1 && tourNumber % 2 == Player2['value'] % 2) {
+        if (nbPlayers == 1 && tourNumber % 2 == Player2['value'] % 2 && Player1['win']==0) {
             let caseToPlayNow = verifyGamePlayer1(array);
             document.getElementById(caseToPlayNow).click();
         }
@@ -165,7 +168,7 @@ function game(Player1, Player2, nbPlayers, playerStart) {
     //Case31
     case31.addEventListener("click", function(e) {
         tourNumber = writeInCase(e, Player1, Player2, tourNumber, array);
-        if (nbPlayers == 1 && tourNumber % 2 == Player2['value'] % 2) {
+        if (nbPlayers == 1 && tourNumber % 2 == Player2['value'] % 2 && Player1['win']==0) {
             let caseToPlayNow = verifyGamePlayer1(array);
             document.getElementById(caseToPlayNow).click();
         }
@@ -173,7 +176,7 @@ function game(Player1, Player2, nbPlayers, playerStart) {
     //Case32
     case32.addEventListener("click", function(e) {
         tourNumber = writeInCase(e, Player1, Player2, tourNumber, array);
-        if (nbPlayers == 1 && tourNumber % 2 == Player2['value'] % 2) {
+        if (nbPlayers == 1 && tourNumber % 2 == Player2['value'] % 2 && Player1['win']==0) {
             let caseToPlayNow = verifyGamePlayer1(array);
             document.getElementById(caseToPlayNow).click();
         }
@@ -181,7 +184,7 @@ function game(Player1, Player2, nbPlayers, playerStart) {
     //Case33
     case33.addEventListener("click", function(e) {
         tourNumber = writeInCase(e, Player1, Player2, tourNumber, array);
-        if (nbPlayers == 1 && tourNumber % 2 == Player2['value'] % 2) {
+        if (nbPlayers == 1 && tourNumber % 2 == Player2['value'] % 2 && Player1['win']==0) {
             let caseToPlayNow = verifyGamePlayer1(array);
             document.getElementById(caseToPlayNow).click();
         }
@@ -199,14 +202,20 @@ function game(Player1, Player2, nbPlayers, playerStart) {
 //Affiche le O ou X dans la case cliquée, modifie le tableau des valeurs,
 //appelle la fonction pour vérifier s'il y a un gagnant
 function writeInCase(e, Player1, Player2, tourNumber, array) {
-    //Si player1 joue
-    if (tourNumber % 2 == Player1['value'] % 2) {
-        e.target.textContent = "X";
-        e.target.style.color = "black";
-        //Sinon si player2 joue
-    } else {
-        e.target.textContent = "O";
-        e.target.style.color = "red";
+    //Si aucun joueur n'a gagné
+    if (Player1['win']==0 && Player2['win']==0){
+        //Si c'est au tour du Player1
+        if (tourNumber % 2 == Player1['value'] % 2) {
+            e.target.textContent = "X";
+            e.target.style.color = "black";
+            //Sinon player2 joue
+        } else {
+            e.target.textContent = "O";
+            e.target.style.color = "red";
+        }
+    //sinon
+    }else{
+        e.taget.textContent = "";
     }
 
     //Récupération des 2 chiffres de la fin de l'id et inscription tableau
@@ -220,8 +229,10 @@ function writeInCase(e, Player1, Player2, tourNumber, array) {
     //Check s'il y a un gagnant
     if (checkIfThereIsAWinner(array)) {
         if (e.target.textContent == "X") {
+            Player1.win=1;
             winnerIs(Player1);
         } else {
+            Player2.win=1;
             winnerIs(Player2);
         }
     } else {
