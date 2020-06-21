@@ -52,7 +52,7 @@ play.onclick = function startNewGame() {
         if (choiceNamePlayer2 != null) {
             Player2.name = choiceNamePlayer2.value;
         } else {
-            Player2.name = "Tuvetula Computer";
+            Player2.name = "Computer";
         }
 
         //CREATION GAME
